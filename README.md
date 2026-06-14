@@ -1,7 +1,8 @@
 # Java Practice Problem — The Shape Area Calculator
 
-**Course:** Object-Oriented Programming  
-**Topics Covered:** Abstract Classes · Method Overriding · Early Binding · Downcasting · `toString()`
+**Course:** Object-Oriented Pattern Design Lab
+**Course Code:** ICT 2208
+**Learning Topics:** Abstract Classes · Method Overriding · Early Binding · Downcasting · `toString()`
 
 ---
 
