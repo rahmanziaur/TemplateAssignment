@@ -81,20 +81,7 @@ Circle     →  area = π × radius²              circumference = 2 × π × ra
 
 ## Project Structure
 
-Your GitHub Classroom repository must have exactly this layout:
-
-```
-src/
-  shapes/
-    Shape.java
-    Rectangle.java
-    Circle.java
-    ShapeMain.java
-```
-
-The autograder compiles from the `src/` root and runs `shapes.ShapeMain`.
-
----
+Please see below. No need src folder. 
 
 ## Starter Code
 
