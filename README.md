@@ -230,248 +230,176 @@ All decimal values must be formatted to **exactly 2 decimal places**.
 
 ---
 
-## Sample Input and Output
+# Shapes Assignment — Java OOP
 
-Here is the formatted content optimized for a GitHub repository **README.md**. It utilizes clean markdown components, code blocks, and clear hierarchies to make the grading criteria easy for students to read.
-
----
-
-```markdown
-## ⚙️ Autograding Test Suites
-
-This assignment is automatically graded out of **5 marks** using GitHub Classroom Input/Output tests. Below are the exact test configurations and sample cases used to evaluate your submission.
+A Java OOP assignment implementing an abstract `Shape` class with two concrete subclasses: `Rectangle` and `Circle`. The program reads shape data from standard input and prints area and perimeter details.
 
 ---
 
-### 🧪 Test Case 1: Simple Mix Test (5 Marks)
-This test case passes exactly **1 Rectangle** and **1 Circle** to verify that both subclasses, text formatting, and explicit downcasting logic work correctly.
-
-* **Test Name:** `Mix Shapes Test`
-* **Setup Command:** `javac shapes/Shape.java shapes/Rectangle.java shapes/Circle.java shapes/ShapeMain.java`
-* **Run Command:** `java shapes.ShapeMain`
-* **Comparison Type:** `Exact match`
-* **Total Points:** `5`
-
-#### Expected Console Interaction
-
-**📥 Sample Input:**
-```text
-2
-RECTANGLE
-Red true
-4.0 5.0
-CIRCLE
-Blue false
-3.0
+## Project Structure
 
 ```
+your-repo/
+├── .github/
+│   ├── classroom/
+│   │   └── autograding.json
+│   └── workflows/
+│       └── classroom.yml
+└── shapes/
+    ├── Shape.java
+    ├── Circle.java
+    ├── Rectangle.java
+    └── ShapeMain.java
+```
 
-**📤 Expected Output:**
+---
 
-```text
-[ Rectangle ]
+## How to Compile
+
+```bash
+javac -d . shapes/Shape.java shapes/Rectangle.java shapes/Circle.java shapes/ShapeMain.java
+```
+
+---
+
+## How to Run
+
+```bash
+echo "<shapeType> <color> <filled> <dimensions>" | java shapes.ShapeMain
+```
+
+| Argument      | Description                        | Example       |
+|---------------|------------------------------------|---------------|
+| `shapeType`   | `rectangle` or `circle`            | `rectangle`   |
+| `color`       | Any color string                   | `Red`         |
+| `filled`      | `true` or `false`                  | `true`        |
+| `dimensions`  | `width length` or `radius`         | `5.0 3.0`     |
+
+---
+
+## Tests
+
+### Test 1 — Rectangle
+
+**Test Name:** `test_rectangle_basic`
+
+**Input:**
+```
+rectangle Red true 5.0 3.0
+```
+
+**Run:**
+```bash
+echo "rectangle Red true 5.0 3.0" | java shapes.ShapeMain
+```
+
+**Expected Output:**
+```
+[ shapes.Rectangle ]
 Color : Red
 Filled: Yes
-Width : 4.0
-Length: 5.0
-Area      : 20.00
-Perimeter : 18.00
+Width : 5.0
+Length: 3.0
+Area      : 15.00
+Perimeter : 16.00
+Area: 15.00
+Perimeter: 16.00
+```
 
+**How the values are calculated:**
+
+| Property  | Formula              | Result  |
+|-----------|----------------------|---------|
+| Area      | width × length       | 15.00   |
+| Perimeter | 2 × (width + length) | 16.00   |
+
+---
+
+### Test 2 — Circle
+
+**Test Name:** `test_circle_basic`
+
+**Input:**
+```
+circle Blue false 7.0
+```
+
+**Run:**
+```bash
+echo "circle Blue false 7.0" | java shapes.ShapeMain
+```
+
+**Expected Output:**
+```
 [ Circle ]
 Color : Blue
 Filled: No
-Radius: 3.0
-Area         : 28.27
-Circumference: 18.85
-
---- Downcast Check ---
-Rectangle width=4.0 length=5.0
-Circle radius=3.0
-
+Radius: 7.0
+Area         : 153.94
+Circumference: 43.98
+Area: 153.94
+Perimeter: 43.98
 ```
+
+**How the values are calculated:**
+
+| Property      | Formula       | Result  |
+|---------------|---------------|---------|
+| Area          | π × r²        | 153.94  |
+| Circumference | 2 × π × r     | 43.98   |
 
 ---
 
-### 🧪 Test Case 2: Alternate Parameters Test (5 Marks)
+## Autograding
 
-This case tests dynamic variable tracking and ensures decimal values round correctly according to your `String.format()` structures.
+This assignment uses GitHub Classroom autograding. Each test is worth **50 points** (100 points total).
 
-* **Test Name:** `Dynamic Math Test`
-* **Setup Command:** `javac shapes/Shape.java shapes/Rectangle.java shapes/Circle.java shapes/ShapeMain.java`
-* **Run Command:** `java shapes.ShapeMain`
-* **Comparison Type:** `Exact match`
-* **Total Points:** `5`
+| Test Name              | Shape     | Points |
+|------------------------|-----------|--------|
+| `test_rectangle_basic` | Rectangle | 50     |
+| `test_circle_basic`    | Circle    | 50     |
 
-#### Expected Console Interaction
-
-**📥 Sample Input:**
-
-```text
-2
-CIRCLE
-Green true
-1.5
-RECTANGLE
-Yellow false
-2.5 3.5
-
-```
-
-**📤 Expected Output:**
-
-```text
-[ Circle ]
-Color : Green
-Filled: Yes
-Radius: 1.5
-Area         : 7.07
-Circumference: 9.42
-
-[ Rectangle ]
-Color : Yellow
-Filled: No
-Width : 2.5
-Length: 3.5
-Area      : 8.75
-Perimeter : 12.00
-
---- Downcast Check ---
-Circle radius=1.5
-Rectangle width=2.5 length=3.5
-
-```
-
-```
-
-```
+Scores are reported automatically on the GitHub Classroom dashboard after every push to `main` or `master`.
 
 ---
 
-## `ShapeMain.java` Skeleton
+## Classes Overview
 
-```java
-package shapes;
+### `Shape` (abstract)
+Base class for all shapes. Holds `color` and `filled` properties.
 
-import java.util.Scanner;
+| Method           | Description                        |
+|------------------|------------------------------------|
+| `getArea()`      | Abstract — returns area            |
+| `getPerimeter()` | Abstract — returns perimeter       |
+| `toString()`     | Returns color and filled status    |
 
-public class ShapeMain {
+### `Rectangle extends Shape`
+| Method           | Formula                    |
+|------------------|----------------------------|
+| `getArea()`      | `width × length`           |
+| `getPerimeter()` | `2 × (width + length)`     |
 
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        // ── TASK 1 ────────────────────────────────────────────
-        // Read the number of shapes from input.
-        //
-        int n = /* YOUR CODE */;
-
-        // ── TASK 2 ────────────────────────────────────────────
-        // Declare a Shape array of size n.
-        //
-        Shape[] shapes = /* YOUR CODE */;
-
-        // ── TASK 3 ────────────────────────────────────────────
-        // Loop n times. For each iteration:
-        //   a) Read the shape type  (RECTANGLE or CIRCLE)
-        //   b) Read color and filled on the same line
-        //   c) Read dimensions (width + length OR radius)
-        //   d) Create the correct object and store it in shapes[i]
-        //      Use the Shape reference type for the array element.
-        //
-        for (int i = 0; i < n; i++) {
-            String type   = /* YOUR CODE */;
-            String color  = /* YOUR CODE */;
-            boolean filled = /* YOUR CODE */;
-
-            if (type.equals("RECTANGLE")) {
-                double width  = /* YOUR CODE */;
-                double length = /* YOUR CODE */;
-                shapes[i] = /* YOUR CODE */;
-
-            } else if (type.equals("CIRCLE")) {
-                double radius = /* YOUR CODE */;
-                shapes[i] = /* YOUR CODE */;
-            }
-        }
-
-        // ── TASK 4 ────────────────────────────────────────────
-        // Loop through the shapes array.
-        // For each shape: print it (toString() is called automatically)
-        // then print a blank line.
-        //
-        for (Shape s : shapes) {
-            /* YOUR CODE */
-        }
-
-        // ── TASK 5 — Downcasting ─────────────────────────────
-        // After printing all shapes, loop through the array again.
-        // If the shape is a Rectangle, downcast it and print:
-        //   "Rectangle width=" + width + " length=" + length
-        // If the shape is a Circle, downcast it and print:
-        //   "Circle radius=" + radius
-        //
-        System.out.println("--- Downcast Check ---");
-        for (Shape s : shapes) {
-            if (s instanceof Rectangle) {
-                Rectangle r = /* YOUR CODE */;
-                System.out.println("Rectangle width="  + r.getWidth()
-                                 + " length=" + r.getLength());
-            } else if (s instanceof Circle) {
-                Circle c = /* YOUR CODE */;
-                System.out.println("Circle radius=" + c.getRadius());
-            }
-        }
-
-        // ── TASK 6 — Abstract class (written answer) ──────────
-        // What error does the compiler give if you write:
-        //     Shape s = new Shape("Red", true);
-        //
-        // Write your answer here as a comment:
-        // ANSWER: _______________________________________________
-
-        sc.close();
-    }
-}
-```
+### `Circle extends Shape`
+| Method           | Formula                    |
+|------------------|----------------------------|
+| `getArea()`      | `π × radius²`              |
+| `getPerimeter()` | `2 × π × radius`           |
 
 ---
 
-## Updated Expected Output (with Downcast Check)
+## Known Issue
 
-The autograder tests `ShapeMain` end-to-end including the downcast section.  
-Below is the full expected output for **Test 3**:
+`Rectangle.java` contains a duplicate nested `Shape` abstract class that must be removed. The top-level `Shape.java` already defines this class. Leaving the nested version in will cause a **compile error**.
 
-```
-[ Rectangle ]
-Color : Green
-Filled: Yes
-Width : 4.0
-Length: 9.0
-Area      : 36.00
-Perimeter : 26.00
-
-[ Circle ]
-Color : Yellow
-Filled: No
-Radius: 3.5
-Area         : 38.48
-Circumference: 21.99
-
-[ Rectangle ]
-Color : Black
-Filled: No
-Width : 10.0
-Length: 2.5
-Area      : 25.00
-Perimeter : 25.00
-
---- Downcast Check ---
-Rectangle width=4.0 length=9.0
-Circle radius=3.5
-Rectangle width=10.0 length=2.5
-```
+**Fix:** Delete the `public abstract static class Shape { ... }` block from the bottom of `Rectangle.java`.
 
 ---
+
+## Requirements
+
+- Java 17 or higher
+- No external libraries required
 
 ## Grading Rubric
 
